@@ -1,0 +1,10 @@
+<App Theme="Basic" Background="Black">
+  <!-- Fonts. -->
+  <Font File="Assets/Fonts/Karla-Regular.ttf" ux:Global="KarlaRegular" />
+  <Font File="Assets/Fonts/Karla-Italic.ttf" ux:Global="KarlaItalic" />
+  <Font File="Assets/Fonts/Karla-Bold.ttf" ux:Global="KarlaBold" />
+  <Font File="Assets/Fonts/Karla-BoldItalic.ttf" ux:Global="KarlaBoldItalic" />
+
+  <!-- App. -->
+  <ux:Include File="Pages/LoginPage.ux"/>
+</App>

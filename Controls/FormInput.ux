@@ -1,0 +1,24 @@
+<Grid ux:Class="FormInput" ux:Name="self" Columns="auto,1*">
+  <!-- Properties. -->
+  <string ux:Property="Title"/>
+  <string ux:Property="Placeholder"/>
+  <bool ux:Property="IsPassword"/>
+  <ImageSource ux:Property="Icon"/>
+  <Uno.Platform.TextInputHint ux:Property="InputHint"/>
+
+  <!-- Layout. -->
+  <Image Column="0" Width="15" Margin="0,3,60,0" Source="{Property self.Icon}" Alignment="Top"/>
+  <StackPanel Column="1">
+    <Text Font="KarlaBold" FontSize="13" TextColor="#B8A6E4" Value="{Property self.Title}"/>
+    <TextEdit Padding="0,11"
+              Font="KarlaRegular" FontSize="15" TextColor="White"
+              InputHint="{Property self.InputHint}" IsPassword="{Property self.IsPassword}"
+              CaretColor="White" SelectionColor="White"
+              PlaceholderText="{Property self.Placeholder}" PlaceholderColor="#717171">
+      <WhileFocused>
+        <Change rectBottom.Opacity=".8" Duration=".3"/>
+      </WhileFocused>
+    </TextEdit>
+    <Rectangle ux:Name="rectBottom" Margin="0,3,0,0" Height="1" Background="White" Opacity=".2"/>
+  </StackPanel>
+</Grid>
