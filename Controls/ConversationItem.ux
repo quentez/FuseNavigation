@@ -1,0 +1,31 @@
+<Panel ux:Class="ConversationItem" ux:Name="Self" Background="Black">
+  <!-- Properties. -->
+  <string ux:Property="Recipient"/>
+  <string ux:Property="Time"/>
+  <string ux:Property="Summary"/>
+  <float4 ux:Property="ContentPadding"/>
+  <ImageSource ux:Property="Avatar"/>
+
+  <!-- Layout. -->
+
+  <Grid Columns="auto,1*" Padding="{Property Self.ContentPadding}">
+    <Image Column="0" Width="50" Margin="0,0,20,0" StretchMode="Uniform" Source="{Property Self.Avatar}" />
+
+    <StackPanel Column="1">
+      <Grid Margin="0,4,0,0" Columns="1*,auto">
+        <Text Font="KarlaBold" TextColor="#B8A6E4" FontSize="14" Value="{Property Self.Recipient}"/>
+        <Text Font="KarlaBold" TextColor="#B8A6E4" FontSize="11" Alignment="Center" Value="{Property Self.Time}"/>
+      </Grid>
+      <Text Font="KarlaRegular" TextColor="White" Margin="0,5,0,0" Value="{Property Self.Summary}"/>
+    </StackPanel>
+  </Grid>
+
+  <Rectangle Margin="0,0,0,1" ux:Name="RectBackground" Fill="White" Opacity="0" />
+
+  <Rectangle Padding="20,0,24,0" Height="1" Alignment="Bottom" Fill="White" Opacity=".15"/>
+
+  <!-- States. -->
+  <WhilePressed>
+    <Change RectBackground.Opacity=".1" />
+  </WhilePressed>
+</Panel>

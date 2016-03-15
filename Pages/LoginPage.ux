@@ -1,44 +1,55 @@
-<Grid Rows="auto,1*,auto,auto">
+<Page ux:Name="LoginPage" Background="Black">
+  <ExitingAnimation>
+    <Change PanelLogo.Opacity="0" Duration=".3" />
+    <Scale Target="RectGreen" Y="3.5" Duration=".5" Easing="QuarticInOut" />
+    <Change LoginPage.Opacity="0" Delay=".3" Duration=".5" Easing="CircularOut" />
+    <Change LoginPage.Visibility="Collapsed" Delay=".8" />
+    <Change StatusBarConfig.Style="Light" Delay=".3" />
+  </ExitingAnimation>
 
-  <!-- TODO: Generalize this -->
-  <double ux:Key="keyboardAnimationDuration" ux:Value=".25"/>
-  <Easing ux:Key="keyboardAnimationEasing" ux:Value="SinusoidalInOut"/>
+  <Grid Rows="auto,1*,auto,auto">
 
-  <!-- OS-specific styling. -->
-  <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Dark" IsVisible="true"/>
+    <!-- Status bar space -->
+    <StatusBarBackground Row="0" Background="#7EEFCC"/>
 
-  <!-- Status bar space -->
-  <StatusBarBackground Row="0" Background="#7EEFCC"/>
+    <!-- Logo. -->
+    <Panel Row="1">
+      <LayoutAnimation>
+        <Resize X="1" Y="1" RelativeTo="LayoutChange" Duration="{Resource KeyboardAnimationDuration}" Easing="{Resource KeyboardAnimationEasing}"/>
+      </LayoutAnimation>
 
-  <!-- Logo. -->
-  <Panel Row="1" Background="#7EEFCC">
-    <LayoutAnimation>
-      <Resize X="1" Y="1" RelativeTo="LayoutChange" Duration="{Resource keyboardAnimationDuration}" Easing="{Resource keyboardAnimationEasing}"/>
-    </LayoutAnimation>
+      <Panel Height="90%" Alignment="Top">
+        <Panel ux:Name="PanelLogo" Height="45%">
+          <Image ux:Name="imageTitle" File="../Assets/Login/LoginLogo.png"/>
+        </Panel>
+      </Panel>
 
-    <Panel Margin="90,0,90,20" Height="60%">
-      <Image ux:Name="imageTitle" File="../Assets/Login/LoginLogo.png"/>
+      <Rectangle ux:Name="RectGreen" Background="#7EEFCC"/>
     </Panel>
-  </Panel>
 
-  <!-- Login form. -->
-  <FileImageSource ux:Key="InputIconUsername" File="../Assets/Icons/InputIconUsername@2x.png"/>
-  <FileImageSource ux:Key="InputIconLock" File="../Assets/Icons/InputIconLock@2x.png"/>
+    <!-- Login form. -->
+    <FileImageSource ux:Key="InputIconUsername" File="../Assets/Icons/InputIconUsername@2x.png"/>
+    <FileImageSource ux:Key="InputIconLock" File="../Assets/Icons/InputIconLock@2x.png"/>
 
-  <Panel Row="2">
-    <LayoutAnimation>
-      <Move X="1" Y="1" RelativeTo="LayoutChange" Duration="{Resource keyboardAnimationDuration}" Easing="{Resource keyboardAnimationEasing}"/>
-    </LayoutAnimation>
-    <StackPanel Margin="35,30,35,25">
-      <FormInput Title="EMAIL" Placeholder="username@domain.com" Icon="{Resource InputIconUsername}" InputHint="Email"/>
-      <FormInput Margin="0,20,0,0" Title="PASSWORD" Placeholder="●●●●●●●●" Icon="{Resource InputIconLock}" IsPassword="true" />
-      <WideButton Margin="0,30,0,0" Text="Get Started"/>
-    </StackPanel>
-  </Panel>
+    <Panel Row="2">
+      <LayoutAnimation>
+        <Move X="1" Y="1" RelativeTo="LayoutChange" Duration="{Resource KeyboardAnimationDuration}" Easing="{Resource KeyboardAnimationEasing}"/>
+      </LayoutAnimation>
+      <StackPanel Margin="35,30,35,25">
+        <FormInput Title="EMAIL" Placeholder="username@domain.com" Icon="{Resource InputIconUsername}" InputHint="Email"/>
+        <FormInput Margin="0,20,0,0" Title="PASSWORD" Placeholder="●●●●●●●●" Icon="{Resource InputIconLock}" IsPassword="true" />
+        <WideButton Margin="0,30,0,0" Text="Get Started">
+          <Clicked>
+            <NavigateTo Target="MainPage"/>
+          </Clicked>
+        </WideButton>
+      </StackPanel>
+    </Panel>
 
-  <Panel Row="3" Margin="35,-5,35,20" Alignment="Bottom">
-    <BasicButton Text="Create Account" Alignment="Left"/>
-    <BasicButton Text="Forgot Password" Alignment="Right"/>
-  </Panel>
-  <BottomBarBackground Row="3" />
-</Grid>
+    <Panel Row="3" Margin="35,-5,35,20" Alignment="Bottom">
+      <BasicButton Text="Create Account" Alignment="Left"/>
+      <BasicButton Text="Forgot Password" Alignment="Right"/>
+    </Panel>
+    <BottomBarBackground Row="3" />
+  </Grid>
+</Page>

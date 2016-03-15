@@ -1,0 +1,43 @@
+<Page ux:Name="ConversationListPage" Title="Hi Quentin!" ux:AutoBind="false">
+  <Grid Rows="auto,1*,auto">
+
+    <!-- Header. -->
+    <Panel Row="0" Padding="30,20" Background="#7EEFCC">
+      <Text Font="KarlaBold" FontSize="28">Conversations</Text>
+    </Panel>
+
+    <!-- Footer tabs. -->
+    <Panel Row="2" Background="White" Height="60">
+      <Panel Alignment="TopCenter" Y="-27">
+        <Image Width="14" Height="14" Margin="20" File="../Assets/Icons/TabIconNew@2x.png"/>
+        <Circle Fill="#B8A6E4">
+          <DropShadow Angle="90" Distance="5" Size="30" Spread="0.1"  />
+        </Circle>
+      </Panel>
+      <Grid Row="2" Columns="1*,1*">
+        <Panel Column="0">
+          <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconRecent@2x.png"/>
+          <Rectangle Background="Black" Height="4%" Alignment="Bottom"/>
+        </Panel>
+        <Panel Column="1">
+          <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconProfile@2x.png"/>
+        </Panel>
+      </Grid>
+    </Panel>
+
+    <!-- Scrolling content. -->
+    <FileImageSource ux:Key="Avatar1" File="../Assets/Avatars/Avatar1.png"/>
+    <FileImageSource ux:Key="Avatar2" File="../Assets/Avatars/Avatar2.png"/>
+    <FileImageSource ux:Key="Avatar3" File="../Assets/Avatars/Avatar3.png"/>
+    <FileImageSource ux:Key="Avatar4" File="../Assets/Avatars/Avatar4.png"/>
+
+    <ScrollViewer Row="1">
+      <StackPanel Margin="0,0,0,10">
+        <ConversationItem ContentPadding="20,22,24,22" Recipient="Cyril Gantzer" Time="1 HOUR" Summary="I finally figured out this new magic trick" Avatar="{Resource Avatar1}" />
+        <ConversationItem ContentPadding="20,22,24,22" Recipient="Pierre Laurac" Time="4 HOURS" Summary="Wanna go for a Mustang ride?" Avatar="{Resource Avatar2}" />
+        <ConversationItem ContentPadding="20,22,24,22" Recipient="Mathilde Collin" Time="1 DAY" Summary="Please send your roadmap before the end of the day." Avatar="{Resource Avatar3}" />
+        <ConversationItem ContentPadding="20,22,24,22" Recipient="Laurent Perrin" Time="3 DAYS" Summary="I think I lost my dog -_-" Avatar="{Resource Avatar4}" />
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
+</Page>
