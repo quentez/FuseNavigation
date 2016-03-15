@@ -20,11 +20,19 @@
 
       <Panel Height="90%" Alignment="Top">
         <Panel ux:Name="PanelLogo" Height="45%">
-          <Image ux:Name="imageTitle" File="../Assets/Login/LoginLogo.png"/>
+          <Image File="../Assets/Login/LoginLogo.png"/>
+        </Panel>
+        <Panel ux:Name="PanelMark" Height="55%" Opacity="0">
+          <Image File="../Assets/Login/LoginMark.png"/>
         </Panel>
       </Panel>
 
       <Rectangle ux:Name="RectGreen" Background="#7EEFCC"/>
+
+      <WhileKeyboardVisible>
+        <Change PanelLogo.Opacity="0" Duration="{Resource KeyboardAnimationDuration}" />
+        <Change PanelMark.Opacity="1" Delay=".2" Duration="{Resource KeyboardAnimationDuration}" />
+      </WhileKeyboardVisible>
     </Panel>
 
     <!-- Login form. -->
