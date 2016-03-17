@@ -1,6 +1,9 @@
 /// <reference path="./Fuse/Index.ts" />
 
-// App entry point.
+/*
+ * App entry point.
+ */
+
 namespace FuseNavigation {
 
   export class App {
