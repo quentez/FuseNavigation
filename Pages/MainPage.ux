@@ -1,6 +1,6 @@
 <Page ux:Name="MainPage" Background="Black">
 
-  <Grid Rows="auto,auto,1*">
+  <Grid Rows="auto,auto,1*,auto">
 
     <!-- Status bar space -->
     <StatusBarBackground Row="0" />
@@ -25,6 +25,9 @@
 
       <ux:Include File="ConversationListPage.ux" />
     </Panel>
+
+    <!-- Bottom space. -->
+    <BottomBarBackground Row="3" />
 
   </Grid>
 </Page>

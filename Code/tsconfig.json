@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "outFile": "App.js"
+  },
+  "files": [
+    "App.ts",
+    "typings/main.d.ts"
+  ],
+  "compileOnSave": false
+}

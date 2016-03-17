@@ -2,6 +2,10 @@
   <!-- OS-specific styling. -->
   <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Dark" IsVisible="true"/>
 
+  <!-- App code. -->
+  <JavaScript File="Code/Native/FuseObservable.js" ux:Global="FuseObservable" />
+  <JavaScript File="CodeBuild/App.js" />
+
   <!-- Fonts. -->
   <Font File="Assets/Fonts/Karla-Regular.ttf" ux:Global="KarlaRegular" />
   <Font File="Assets/Fonts/Karla-Italic.ttf" ux:Global="KarlaItalic" />
@@ -14,7 +18,7 @@
 
   <!-- App. -->
   <Panel>
-    <DirectNavigation ux:Name="NavMain" Active="LoginPage" />
+    <DirectNavigation ux:Name="NavMain" Active="{currentPage}" />
 
     <ux:Include File="Pages/LoginPage.ux"/>
     <ux:Include File="Pages/MainPage.ux"/>

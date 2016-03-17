@@ -2,3 +2,6 @@
 .cache/
 build/
 .uno/
+CodeBuild/
+node_modules/
+Code/typings

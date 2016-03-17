@@ -1,0 +1,25 @@
+{
+  "name": "fuse-navigation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quentez/FuseNavigation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quentez/FuseNavigation/issues"
+  },
+  "homepage": "https://github.com/quentez/FuseNavigation#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-typescript": "^2.12.1",
+    "redux": "^3.3.1"
+  }
+}

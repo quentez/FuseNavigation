@@ -31,13 +31,13 @@
     <FileImageSource ux:Key="Avatar3" File="../Assets/Avatars/Avatar3.png"/>
     <FileImageSource ux:Key="Avatar4" File="../Assets/Avatars/Avatar4.png"/>
 
-    <ScrollViewer Row="1">
-      <StackPanel Margin="0,0,0,10">
+    <ScrollView Row="1">
+      <StackPanel Margin="0,0,0,40">
         <ConversationItem ContentPadding="20,22,24,22" Recipient="Cyril Gantzer" Time="1 HOUR" Summary="I finally figured out this new magic trick" Avatar="{Resource Avatar1}" />
         <ConversationItem ContentPadding="20,22,24,22" Recipient="Pierre Laurac" Time="4 HOURS" Summary="Wanna go for a ride?" Avatar="{Resource Avatar2}" />
         <ConversationItem ContentPadding="20,22,24,22" Recipient="Mathilde Collin" Time="1 DAY" Summary="Please send your roadmap before the end of the day." Avatar="{Resource Avatar3}" />
         <ConversationItem ContentPadding="20,22,24,22" Recipient="Laurent Perrin" Time="3 DAYS" Summary="I think I lost my dog -_-" Avatar="{Resource Avatar4}" />
       </StackPanel>
-    </ScrollViewer>
+    </ScrollView>
   </Grid>
 </Page>
