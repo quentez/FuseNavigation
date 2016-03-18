@@ -3,23 +3,29 @@
 
     <!-- Header. -->
     <Panel Row="0" Padding="30,20" Background="#7EEFCC">
-      <Text Font="KarlaBold" FontSize="28">Conversations</Text>
+      <Text Font="KarlaBold" FontSize="28" Value="{state}" />
     </Panel>
 
     <!-- Footer tabs. -->
-    <Panel Row="2" Background="White" Height="60">
-      <Panel Alignment="TopCenter" Y="-27">
+    <Panel ux:Name="TestPanel" Row="2" Background="White" Height="60">
+      <Panel Alignment="TopCenter" Y="-27" HitTestMode="LocalBounds">
+        <Clicked Handler="{login.incrementAsync}" />
+
         <Image Width="14" Height="14" Margin="20" File="../Assets/Icons/TabIconNew@2x.png"/>
         <Circle Fill="#B8A6E4">
           <DropShadow Angle="90" Distance="5" Size="30" Spread="0.1"  />
         </Circle>
       </Panel>
       <Grid Row="2" Columns="1*,1*">
-        <Panel Column="0">
+        <Panel Column="0" HitTestMode="LocalBounds">
+          <Clicked Handler="{login.increment}" />
+
           <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconRecent@2x.png"/>
           <Rectangle Background="Black" Height="4%" Alignment="Bottom"/>
         </Panel>
-        <Panel Column="1">
+        <Panel Column="1" HitTestMode="LocalBounds">
+          <Clicked Handler="{login.decrement}" />
+
           <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconProfile@2x.png"/>
         </Panel>
       </Grid>

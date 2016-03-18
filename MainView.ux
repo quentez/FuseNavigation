@@ -3,7 +3,8 @@
   <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Dark" IsVisible="true"/>
 
   <!-- App code. -->
-  <JavaScript File="Code/Native/FuseObservable.js" ux:Global="FuseObservable" />
+  <JavaScript File="Code/Dependencies/Native/FuseObservable.js" ux:Global="FuseObservable" />
+  <JavaScript File="node_modules/redux/dist/redux.js" ux:Global="Redux" />
   <JavaScript File="CodeBuild/App.js" />
 
   <!-- Fonts. -->
@@ -18,9 +19,9 @@
 
   <!-- App. -->
   <Panel>
-    <DirectNavigation ux:Name="NavMain" Active="{currentPage}" />
+    <DirectNavigation ux:Name="NavMain" Active="MainPage" />
 
-    <ux:Include File="Pages/LoginPage.ux"/>
+    <!-- <ux:Include File="Pages/LoginPage.ux"/> -->
     <ux:Include File="Pages/MainPage.ux"/>
   </Panel>
 </App>

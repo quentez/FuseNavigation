@@ -7,5 +7,6 @@
         "node_modules/": true,
         "build/": true,
         ".uno": true
-    }
+    },
+    "editor.tabSize": 2
 }

@@ -44,13 +44,9 @@
         <Move X="1" Y="1" RelativeTo="LayoutChange" Duration="{Resource KeyboardAnimationDuration}" Easing="{Resource KeyboardAnimationEasing}"/>
       </LayoutAnimation>
       <StackPanel Margin="35,30,35,25">
-        <FormInput Title="{name}" Placeholder="username@domain.com" Icon="{Resource InputIconUsername}" InputHint="Email"/>
+        <FormInput Title="{test.title}" Placeholder="username@domain.com" Icon="{Resource InputIconUsername}" InputHint="Email"/>
         <FormInput Margin="0,20,0,0" Title="PASSWORD" Placeholder="●●●●●●●●" Icon="{Resource InputIconLock}" IsPassword="true" />
-        <WideButton Margin="0,30,0,0" Text="Get Started">
-          <Clicked>
-            <NavigateTo Target="MainPage"/>
-          </Clicked>
-        </WideButton>
+        <WideButton Margin="0,30,0,0" Text="Get Started"/>
       </StackPanel>
     </Panel>
 

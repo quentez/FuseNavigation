@@ -8,9 +8,6 @@
     <!-- TopBar -->
     <Grid Row="1" Columns="1*,5*,1*">
       <Panel Column="0" Padding="12,0,0,0" HitTestMode="LocalBounds">
-        <Clicked>
-          <NavigateTo Target="LoginPage" />
-        </Clicked>
         <Image StretchMode="Uniform" Height="13" Alignment="Left" File="../Assets/Icons/TopbarIconMenu@2x.png" />
       </Panel>
       <Text Column="1" Padding="16" TextColor="White" Alignment="Center">Hi Quentin!</Text>

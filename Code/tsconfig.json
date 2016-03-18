@@ -8,8 +8,7 @@
     "outFile": "App.js"
   },
   "files": [
-    "App.ts",
-    "typings/main.d.ts"
+    "App.ts"
   ],
   "compileOnSave": false
 }
