@@ -2,9 +2,7 @@
 
 namespace FuseNavigation.Components {
   export class LoginPage {
-    constructor(store: Redux.IStore<any>) {
-      console.log("Created Login");
-      
+    constructor(store: Redux.IStore<any>) {      
       // UX Actions.
       this.increment = () => {
         store.dispatch({
