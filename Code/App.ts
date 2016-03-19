@@ -1,29 +1,37 @@
-/// <reference path="./Dependencies/Fuse/Index.ts" />
-/// <reference path="./Dependencies/Redux/Index.ts" />
-/// <reference path="./Components/Index.ts" />
-/// <reference path="./Reducers/Index.ts" />
-
 /*
  * App entry point.
  */
 
-namespace FuseNavigation {
+import Observable = require("FuseJS/Observable");
+import * as Redux from "redux";
+import * as Immutable from "immutable";
 
-  export class App {
-    constructor() {
-      // Initialize Redux.
-      const redux = Redux.Instance();
-      const store = redux.createStore(Reducers.Counter, 0);
-      
-      // Initialize model.
-      this.state = new Fuse.Observable(store.getState());
-      store.subscribe(() => this.state.value = store.getState());
-      
-      // Initialize components.
-      this.login = new Components.LoginPage(store);
-    }
+import ModelToObservable from "./Fuse/ModelToObservable";
+import * as Reducers from "./Reducers/Index";
+import ConversationListPage from "./Components/ConversationListPage";
+
+class App {
+  constructor() {
+    // Initialize Redux.
+    const store = Redux.createStore(Reducers.MainReducer);
+
+    // Initialize model.
+    let currentState = store.getState();
+    this.state = ModelToObservable(Observable, null, null, currentState);
+    store.subscribe(() => {
+      let newState = store.getState(); 
+      ModelToObservable(Observable, this.state, currentState, newState);
+      currentState = newState;
+    });
     
-    login: Components.LoginPage;
-    state: Fuse.Observable<number>;
+    console.log("App started.");
+
+    // Initialize components.
+    this.conversationList = new ConversationListPage(store);
   }
+
+  conversationList: ConversationListPage;
+  state: FuseObservable<any>;
 }
+
+export = new App();

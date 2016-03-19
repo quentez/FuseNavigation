@@ -3,8 +3,6 @@
   <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Dark" IsVisible="true"/>
 
   <!-- App code. -->
-  <JavaScript File="Code/Dependencies/Native/FuseObservable.js" ux:Global="FuseObservable" />
-  <JavaScript File="node_modules/redux/dist/redux.js" ux:Global="Redux" />
   <JavaScript File="CodeBuild/App.js" />
 
   <!-- Fonts. -->

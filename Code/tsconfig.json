@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
+    "module": "commonjs",
     "target": "es5",
     "noImplicitAny": false,
     "noEmitOnError": true,
     "removeComments": false,
-    "sourceMap": true,
-    "outFile": "App.js"
+    "sourceMap": true
   },
   "files": [
-    "App.ts"
+    "App.ts",
+    "typings/main.d.ts",
+    "../CodeDefinitions/Observable.d.ts",
+    "../CodeDefinitions/ImmutableOverride.d.ts"
   ],
   "compileOnSave": false
 }
