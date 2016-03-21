@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { handleActions, handleAction, IAction } from "redux-actions";
 
 import * as Constants from "../Constants";
-import { IState, ITodo, VisibilityFilter } from "../Model";
+import { IState, ITodo, IVisibilityFilterContainer, VisibilityFilter } from "../Model";
 
 const todo = handleActions({
   [Constants.ADD_TODO](state: ITodo, action: IAction<Constants.IAddTodoPayload>) {
@@ -36,10 +36,12 @@ const todos = handleActions({
 }, []);
 
 const visibilityFilter = handleActions({
-  [Constants.SET_VISIBILITY_FILTER](state: VisibilityFilter, action: IAction<Constants.ISetVisibilityFilterPayload>) {
-    return action.payload.filter;
+  [Constants.SET_VISIBILITY_FILTER](state: IVisibilityFilterContainer, action: IAction<Constants.ISetVisibilityFilterPayload>) {
+    return Object.lightAssign({}, state, <IVisibilityFilterContainer> {
+      filter: action.payload.filter
+    });
   }
-}, VisibilityFilter.Active);
+}, <IVisibilityFilterContainer> { filter: VisibilityFilter.Active });
   
 
 const todoApp = combineReducers<IState>({

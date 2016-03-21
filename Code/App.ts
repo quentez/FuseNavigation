@@ -17,7 +17,6 @@ Store.subscribe(() => {
   let newState = TodoAppComponent();
   ModelToObservable(Observable, state, currentState, newState);
   currentState = newState;
-  console.log("Got state:", JSON.stringify(newState));
 });
 
 console.log("App started.");

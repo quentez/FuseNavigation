@@ -1,6 +1,6 @@
 <Page ux:Name="MainPage" Background="Black">
 
-  <Grid Rows="auto,auto,auto,1*,auto">
+  <Grid Rows="auto,auto,auto,1*,auto,auto">
 
     <!-- Status bar space -->
     <StatusBarBackground Row="0" />
@@ -46,8 +46,31 @@
       </StackPanel>
     </Panel>
 
+    <!-- Footer tabs. -->
+    <Panel Row="4" Background="White" Height="60">
+
+      <Panel ux:Class="FooterTab" HitTestMode="LocalBounds">
+        <Clicked Handler="{onClick}" />
+
+        <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconRecent@2x.png"/>
+
+        <WhileTrue Value="{active}">
+          <Rectangle Background="Black" Height="4%" Alignment="Bottom"/>
+        </WhileTrue>
+      </Panel>
+
+      <Grid Row="2" Columns="1*,1*">
+        <Select Data="{filterActive}">
+          <FooterTab Column="0" />
+        </Select>
+        <Select Data="{filterAll}">
+          <FooterTab Column="1" />
+        </Select>
+      </Grid>
+    </Panel>
+
     <!-- Bottom space. -->
-    <BottomBarBackground Row="4" />
+    <BottomBarBackground Row="5" />
 
   </Grid>
 </Page>

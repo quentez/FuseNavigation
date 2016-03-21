@@ -24,6 +24,8 @@ class Store<TState> {
     let connectId = this.lastConnectId++; 
     
     return (props?: TProps) => {
+      var uniqueProps = JSON.stringify(props);
+      
       // Get the current state from the store.    
       let state = this.store.getState();
       
@@ -37,12 +39,15 @@ class Store<TState> {
       
       // If not, return the cached value.
       if (dependencyValues.length > 0 && !shouldRefresh)
-        return dependencyValues[0]._connectCache[connectId];
+        return dependencyValues[0]._connectCache[connectId + uniqueProps];
         
       // Build the new content from the props and dependencies.
       var innerContent = stateToProps(props, ...dependencyValues);
       if (innerContent instanceof Array)
         innerContent = {list: innerContent}; 
+        
+      if (!(innerContent instanceof Object))
+        innerContent = {value: innerContent};
       
       let content = Object.assign({},
         innerContent,
@@ -56,7 +61,7 @@ class Store<TState> {
         if (!d._connectCache)
           d._connectCache = {};
           
-        d._connectCache[connectId] = content;
+        d._connectCache[connectId + uniqueProps] = content;
       })
         
       // Return the new content.

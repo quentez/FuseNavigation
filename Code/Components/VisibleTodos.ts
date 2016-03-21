@@ -1,17 +1,17 @@
 import Store from "../Store";
-import { ITodo, VisibilityFilter } from "../Model";
+import { ITodo, IVisibilityFilterContainer, VisibilityFilter } from "../Model";
 import todo from "./Todo";
 
 const getTodos = (state) => state.todos;
-const getVisibilityFilter = (state) => state.visibilityFilter;
+const getCurrentFilter = (state) => state.visibilityFilter;
 
-const mapContent = (props, todos: ITodo[], visibilityFilter: VisibilityFilter) => 
-  (visibilityFilter === VisibilityFilter.Active
+const mapContent = (props, todos: ITodo[], currentFilter: IVisibilityFilterContainer) => 
+  (currentFilter.filter === VisibilityFilter.Active
     ? todos.filter(t => !t.completed)
-    : todos).map(t => todo({ id: t.id }));
+    : todos.filter(t => t.completed)).map(t => todo({ id: t.id }));
 
 const visibleTodos = Store.connect(
-  [getTodos, getVisibilityFilter],
+  [getTodos, getCurrentFilter],
   mapContent
 );
 

@@ -48,13 +48,14 @@ export default function ModelToObservable(observable: (...values) => FuseObserva
     if (!existingObservable)
       existingObservable = observable({});
       
+    let newModelKeys = Object.keys(newModel).filter(key => key[0] !== "_");
+    
     let sameKeys;
     let oldKeys = [];
     let newKeys = [];
     if (currentModel !== newModel)
       if (currentModel) {
-        let currentModelKeys = Object.keys(currentModel);
-        let newModelKeys = Object.keys(newModel);
+        let currentModelKeys = Object.keys(currentModel).filter(key => key[0] !== "_");
         
         sameKeys = currentModelKeys.filter(key => newModelKeys.indexOf(key) >= 0);
         oldKeys = currentModelKeys.filter(key => newModelKeys.indexOf(key) < 0);
@@ -62,10 +63,10 @@ export default function ModelToObservable(observable: (...values) => FuseObserva
       }
       else {
         sameKeys = [];
-        newKeys = Object.keys(newModel);
+        newKeys = newModelKeys;
       }
     else {
-      sameKeys = Object.keys(newModel);
+      sameKeys = newModelKeys;
     }
     
     // Remove the old keys.

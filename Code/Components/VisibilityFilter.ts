@@ -1,6 +1,6 @@
 import { IDispatch } from "redux";
 import Store from "../Store";
-import { VisibilityFilter } from "../Model";
+import { IVisibilityFilterContainer, VisibilityFilter } from "../Model";
 import { setVisibilityFilterAction } from "../Actions";
 
 interface IProps {
@@ -9,11 +9,11 @@ interface IProps {
 
 const getCurrentFilter = (state) => state.visibilityFilter;
 
-const mapContent = (props: IProps, currentFilter: VisibilityFilter) => {
+const mapContent = (props: IProps, currentFilter: IVisibilityFilterContainer) => {
   return {
-    active: props.filter === currentFilter
+    active: props.filter === currentFilter.filter
   };
-}
+};
 
 const mapHandlers = (dispatch: IDispatch, props: IProps) => {
   return {
@@ -21,12 +21,12 @@ const mapHandlers = (dispatch: IDispatch, props: IProps) => {
       dispatch(setVisibilityFilterAction(props.filter));
     }
   }  
-}
+};
 
 const visibilityFilter = Store.connect<IProps>(
   [getCurrentFilter],
   mapContent,
   mapHandlers
-)
+);
 
 export default visibilityFilter;
