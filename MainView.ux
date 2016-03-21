@@ -1,6 +1,6 @@
 <App Theme="Basic" Background="Black">
   <!-- OS-specific styling. -->
-  <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Dark" IsVisible="true"/>
+  <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Light" IsVisible="true"/>
 
   <!-- App code. -->
   <JavaScript File="CodeBuild/App.js" />
@@ -11,9 +11,17 @@
   <Font File="Assets/Fonts/Karla-Bold.ttf" ux:Global="KarlaBold" />
   <Font File="Assets/Fonts/Karla-BoldItalic.ttf" ux:Global="KarlaBoldItalic" />
 
+  <!-- Colors. -->
+  <SolidColor Color="#000000" ux:Global="BackgroundColor" />
+  <SolidColor Color="#7EEFCC" ux:Global="ContrastColor" />
+  <SolidColor Color="#B8A6E4" ux:Global="AccentColor" />
+  <SolidColor Color="#AA94E3" ux:Global="AccentColorDark" />
+  <SolidColor Color="#FFFFFF" ux:Global="TextColor" />
+  <SolidColor Color="#000000" ux:Global="ContrastTextColor" />
+
   <!-- Global resources. -->
-  <double ux:Key="KeyboardAnimationDuration" ux:Value=".25"/>
-  <Easing ux:Key="KeyboardAnimationEasing" ux:Value="SinusoidalInOut"/>
+  <double ux:Global="KeyboardAnimationDuration" ux:Value=".25"/>
+  <Easing ux:Global="KeyboardAnimationEasing" ux:Value="SinusoidalInOut"/>
 
   <!-- App. -->
   <Panel>

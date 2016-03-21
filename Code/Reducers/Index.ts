@@ -1,70 +1,50 @@
-import Observable = require("FuseJS/Observable");
-import * as Redux from "redux";
-import * as Immutable from "immutable";
-import * as ActionTypes from "../Constants/ActionTypes";
+import { combineReducers } from "redux";
+import { handleActions, handleAction, IAction } from "redux-actions";
 
-export interface IState {
-  title: string;
-  list: IListItem[];
-}
+import * as Constants from "../Constants";
+import { IState, ITodo, VisibilityFilter } from "../Model";
 
-interface IListItem {
-  id: number;
-  text: string;
-}
-
-const titleActionsMap = {
-  [ActionTypes.ADD_ITEM](state: string, action: ActionTypes.IAddItemAction) {
-    return "Added item";
+const todo = handleActions({
+  [Constants.ADD_TODO](state: ITodo, action: IAction<Constants.IAddTodoPayload>) {
+    // Add the new action to the state.
+    return <ITodo> {
+      id: action.payload.id,
+      text: action.payload.text
+    }
   },
-  [ActionTypes.REMOVE_ITEM](state: string, action: ActionTypes.IRemoveItemAction) {
-    return "Removed item: " + action.id;
+  [Constants.TOGGLE_TODO](state: ITodo, action: IAction<Constants.IToggleTodoPayload>) {
+    // If this isn't the target todo, return.
+    if (state.id !== action.payload.id)
+      return state;
+      
+    return Object.lightAssign({}, state, <ITodo> {
+      completed: !state.completed
+    });
   }
-}
-
-const listActionsMap = {
-  [ActionTypes.ADD_ITEM](state: IListItem[], action: ActionTypes.IAddItemAction) {
-    // Add the new item to the state.
-    return [
-      ...state,
-      <IListItem> {
-        id: findNewItemId(state),
-        text: action.text
-      }
-    ];
-  },
-  [ActionTypes.REMOVE_ITEM](state: IListItem[], action: ActionTypes.IRemoveItemAction) {
-    // Remove the last item from the list.
-    console.log("Removing action:", action.id);
-    return state.filter(item => item.id !== action.id);
-  }
-}
-
-export const MainReducer = <Redux.IReducer<IState>> Redux.combineReducers({
-  title: TitleReducer,
-  list: ListReducer
 });
 
-function TitleReducer(state: string = "Main Title", action: Redux.IAction) {  
-  // Find a reducer for the specified action type.
-  const reduceFunction = titleActionsMap[action.type];
-  if (!reduceFunction)
-    return state;
-   
-  // If an action was found, reduce.
-  return reduceFunction(state, action);
-}
+const todos = handleActions({
+  [Constants.ADD_TODO](state: ITodo[], action: IAction<Constants.IAddTodoPayload>) {
+    return [
+      ...state,
+      todo(undefined, action)
+    ];
+  },
+  [Constants.TOGGLE_TODO](state: ITodo[], action: IAction<Constants.IToggleTodoPayload>) {
+    return state.map(t => todo(t, action));
+  }
+}, []);
 
-export function ListReducer(state: IListItem[] = [], action: Redux.IAction) {
-  // Find a reducer for the specified action type.
-  const reduceFunction = listActionsMap[action.type];
-  if (!reduceFunction)
-    return state;
-   
-  // If an action was found, reduce.
-  return reduceFunction(state, action);
-}
+const visibilityFilter = handleActions({
+  [Constants.SET_VISIBILITY_FILTER](state: VisibilityFilter, action: IAction<Constants.ISetVisibilityFilterPayload>) {
+    return action.payload.filter;
+  }
+}, VisibilityFilter.Active);
+  
 
-function findNewItemId(state: IListItem[]) {
-  return state.reduce((p, c) => c.id > p ? c.id : p, 0) + 1;
-}
+const todoApp = combineReducers<IState>({
+  todos,
+  visibilityFilter
+});
+
+export default todoApp;

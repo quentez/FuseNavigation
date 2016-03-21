@@ -3,22 +3,14 @@
 
     <!-- Header. -->
     <Panel Row="0" Padding="30,20" Background="#7EEFCC">
-      <Text Font="KarlaBold" FontSize="28" Value="{state.title}" />
+      <Text Font="KarlaBold" FontSize="28" Value="Test" />
     </Panel>
 
     <!-- Footer tabs. -->
     <Panel ux:Name="TestPanel" Row="2" Background="White" Height="60">
-      <Panel Alignment="TopCenter" Y="-27" HitTestMode="LocalBounds">
-        <Clicked Handler="{conversationList.incrementAsync}" />
-
-        <Image Width="14" Height="14" Margin="20" File="../Assets/Icons/TabIconNew@2x.png"/>
-        <Circle Fill="#B8A6E4">
-          <DropShadow Angle="90" Distance="5" Size="30" Spread="0.1"  />
-        </Circle>
-      </Panel>
       <Grid Row="2" Columns="1*,1*">
         <Panel Column="0" HitTestMode="LocalBounds">
-          <Clicked Handler="{conversationList.addItem}" />
+          <Clicked Handler="{state.list.addItem}" />
 
           <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconRecent@2x.png"/>
           <Rectangle Background="Black" Height="4%" Alignment="Bottom"/>
@@ -37,9 +29,9 @@
 
     <ScrollView Row="1">
       <StackPanel Margin="0,0,0,40">
-        <Each Items="{state.list}">
+        <Each Items="{state.list.items}">
           <ConversationItem ContentPadding="20,22,24,22" Recipient="{id}" Time="1 HOUR" Summary="{text}" Avatar="{Resource Avatar1}">
-            <Clicked Handler="{conversationList.removeItem}" />
+            <Clicked Handler="{removeItem}" />
             <LayoutAnimation>
               <Move RelativeTo="LayoutChange" Y="1" Duration="0.2" Easing="CircularInOut"/>
             </LayoutAnimation>

@@ -7,11 +7,10 @@
     "removeComments": false,
     "sourceMap": true
   },
-  "files": [
-    "App.ts",
-    "typings/main.d.ts",
-    "../CodeDefinitions/Observable.d.ts",
-    "../CodeDefinitions/ImmutableOverride.d.ts"
+  "exclude": [
+    "*.js",
+    "typings/browser.d.ts",
+    "typings/browser"
   ],
   "compileOnSave": false
 }

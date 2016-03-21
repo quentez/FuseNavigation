@@ -3,35 +3,23 @@
  */
 
 import Observable = require("FuseJS/Observable");
-import * as Redux from "redux";
-import * as Immutable from "immutable";
-
 import ModelToObservable from "./Fuse/ModelToObservable";
-import * as Reducers from "./Reducers/Index";
-import ConversationListPage from "./Components/ConversationListPage";
 
-class App {
-  constructor() {
-    // Initialize Redux.
-    const store = Redux.createStore(Reducers.MainReducer);
+import Store from "./Store";
+import TodoAppComponent from "./Components";
 
-    // Initialize model.
-    let currentState = store.getState();
-    this.state = ModelToObservable(Observable, null, null, currentState);
-    store.subscribe(() => {
-      let newState = store.getState(); 
-      ModelToObservable(Observable, this.state, currentState, newState);
-      currentState = newState;
-    });
-    
-    console.log("App started.");
+// Build the initial state.
+let currentState = TodoAppComponent();
+let state = ModelToObservable(Observable, null, null, currentState);
 
-    // Initialize components.
-    this.conversationList = new ConversationListPage(store);
-  }
+// Subscribe to store changes in order to update the visual state.
+Store.subscribe(() => {
+  let newState = TodoAppComponent();
+  ModelToObservable(Observable, state, currentState, newState);
+  currentState = newState;
+  console.log("Got state:", JSON.stringify(newState));
+});
 
-  conversationList: ConversationListPage;
-  state: FuseObservable<any>;
-}
+console.log("App started.");
 
-export = new App();
+export = state;

@@ -1,4 +1,12 @@
 export default function ModelToObservable(observable: (...values) => FuseObservable<any>, existingObservable: FuseObservable<any>, currentModel: any, newModel: any) {  
+  // If this is a function, return right away.
+  if (newModel instanceof Function)
+    return newModel;
+    
+  // If the model didn't change, return the existing obersable.
+  if (newModel === currentModel)
+    return existingObservable;
+  
   // Two very different cases, whether it's an array or an object.
   if (newModel instanceof Array) {
     // If the observable doesn't exist, create it.
@@ -13,13 +21,26 @@ export default function ModelToObservable(observable: (...values) => FuseObserva
     observableItems.forEach((observableItem, index) => ModelToObservable(observable, <FuseObservable<any>>observableItem, currentModel[index], currentModel[index]));
     
     // Find the items we'll need to remove, and remove them.
-    let oldItems = (currentModel && currentModel.filter(item => newModel.indexOf(item) < 0)) || [];
+    let oldItems = (currentModel && currentModel.filter(item => item.id === undefined ? newModel.indexOf(item) < 0 : !newModel.find(newItem => newItem.id === item.id))) || [];
     oldItems.forEach(item => existingObservable.remove(observableItems[currentModel.indexOf(item)]));
     
     // Update all the values in the observable.
     existingObservable.refreshAll(newModel, 
-      (oldItem, newItem) => currentModel[observableItems.indexOf(oldItem)] === newItem,
-      (oldItem, newItem) => undefined,
+      (oldItem, newItem) => {
+        var currentItem = currentModel[observableItems.indexOf(oldItem)];
+        
+        // If the model items have ids, then compare that. Otherwise, compare by reference.
+        return currentItem.id === undefined ? currentItem === newItem : currentItem.id === newItem.id;
+      },
+      (oldItem, newItem) => {
+        // If the model item is the same, no need to do anything.
+        var currentItem = currentModel[observableItems.indexOf(oldItem)];
+        if (currentItem === newItem)
+          return;
+          
+        // Otherwise, update it.
+        ModelToObservable(observable, oldItem, currentItem, newItem);
+      },
       newItem => ModelToObservable(observable, null, null, newItem));      
   }
   else if (newModel instanceof Object) {
@@ -58,7 +79,7 @@ export default function ModelToObservable(observable: (...values) => FuseObserva
   }
   else {
     // Prevent undefined values.
-    if (!newModel)
+    if (newModel === undefined)
       newModel = null;
     
     // If the observable doesn't exist, create it.
