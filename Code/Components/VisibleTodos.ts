@@ -5,10 +5,13 @@ import todo from "./Todo";
 const getTodos = (state) => state.todos;
 const getCurrentFilter = (state) => state.visibilityFilter;
 
-const mapContent = (props, todos: ITodo[], currentFilter: IVisibilityFilterContainer) => 
-  (currentFilter.filter === VisibilityFilter.Active
-    ? todos.filter(t => !t.completed)
-    : todos.filter(t => t.completed)).map(t => todo({ id: t.id }));
+const mapContent = (props, todos: ITodo[], currentFilter: IVisibilityFilterContainer) => {
+  return {
+    list: todos.map(t => todo({ id: t.id })),
+    isActiveListEmpty: (currentFilter.filter === VisibilityFilter.Active && todos.every(t => t.completed)),
+    isAllListEmpty: todos.length === 0
+  };
+}
 
 const visibleTodos = Store.connect(
   [getTodos, getCurrentFilter],

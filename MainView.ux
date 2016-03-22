@@ -1,4 +1,4 @@
-<App Theme="Basic" Background="Black">
+<App Theme="Basic" Background="White">
   <!-- OS-specific styling. -->
   <iOS.StatusBarConfig ux:Name="StatusBarConfig" Style="Light" IsVisible="true"/>
 
@@ -10,12 +10,14 @@
   <Font File="Assets/Fonts/Karla-Italic.ttf" ux:Global="KarlaItalic" />
   <Font File="Assets/Fonts/Karla-Bold.ttf" ux:Global="KarlaBold" />
   <Font File="Assets/Fonts/Karla-BoldItalic.ttf" ux:Global="KarlaBoldItalic" />
+  <Font File="Assets/Fonts/Avenir-Book.ttf" ux:Global="AvenirBook" />
+  <Font File="Assets/Fonts/Avenir-Light.ttf" ux:Global="AvenirLight" />
 
   <!-- Colors. -->
   <SolidColor Color="#000000" ux:Global="BackgroundColor" />
   <SolidColor Color="#7EEFCC" ux:Global="ContrastColor" />
-  <SolidColor Color="#B8A6E4" ux:Global="AccentColor" />
-  <SolidColor Color="#AA94E3" ux:Global="AccentColorDark" />
+  <SolidColor Color="#FF3366" ux:Global="AccentColor" />
+  <SolidColor Color="#CE2650" ux:Global="AccentColorDark" />
   <SolidColor Color="#FFFFFF" ux:Global="TextColor" />
   <SolidColor Color="#000000" ux:Global="ContrastTextColor" />
 

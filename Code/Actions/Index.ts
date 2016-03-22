@@ -11,6 +11,10 @@ export const toggleTodoAction = createAction(Constants.TOGGLE_TODO, (id: number)
   id: id
 });
 
+export const removeTodoAction = createAction(Constants.REMOVE_TODO, (id: number) => <Constants.IRemoveTodoPayload> {
+  id: id
+});
+
 export const setVisibilityFilterAction = createAction(Constants.SET_VISIBILITY_FILTER, filter => <Constants.ISetVisibilityFilterPayload> {
   filter: filter
 });

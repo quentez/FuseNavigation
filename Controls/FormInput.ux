@@ -1,4 +1,4 @@
-<Grid ux:Class="FormInput" ux:Name="self" Columns="auto,1*">
+<Grid ux:Class="FormInput" Columns="auto,1*">
   <!-- Properties. -->
   <string ux:Property="Title"/>
   <string ux:Property="Placeholder"/>
@@ -7,14 +7,14 @@
   <Uno.Platform.TextInputHint ux:Property="InputHint"/>
 
   <!-- Layout. -->
-  <Image Column="0" Width="15" Margin="0,3,60,0" Source="{Property self.Icon}" Alignment="Top"/>
+  <Image Column="0" Width="15" Margin="0,3,60,0" Source="{Property this.Icon}" Alignment="Top"/>
   <StackPanel Column="1">
-    <Text Font="KarlaBold" FontSize="13" TextColor="#B8A6E4" Value="{Property self.Title}"/>
+    <Text Font="KarlaBold" FontSize="13" TextColor="#B8A6E4" Value="{Property this.Title}"/>
     <TextEdit Padding="0,11"
               Font="KarlaRegular" FontSize="15" TextColor="White"
-              InputHint="{Property self.InputHint}" IsPassword="{Property self.IsPassword}"
+              IsPassword="{Property this.IsPassword}"
               CaretColor="White" SelectionColor="White"
-              PlaceholderText="{Property self.Placeholder}" PlaceholderColor="#717171">
+              PlaceholderText="{Property this.Placeholder}" PlaceholderColor="#717171">
       <WhileFocused>
         <Change rectBottom.Opacity=".8" Duration=".3"/>
       </WhileFocused>

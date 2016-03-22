@@ -9,7 +9,8 @@ const todo = handleActions({
     // Add the new action to the state.
     return <ITodo> {
       id: action.payload.id,
-      text: action.payload.text
+      text: action.payload.text,
+      completed: false
     }
   },
   [Constants.TOGGLE_TODO](state: ITodo, action: IAction<Constants.IToggleTodoPayload>) {
@@ -32,8 +33,11 @@ const todos = handleActions({
   },
   [Constants.TOGGLE_TODO](state: ITodo[], action: IAction<Constants.IToggleTodoPayload>) {
     return state.map(t => todo(t, action));
+  },
+  [Constants.REMOVE_TODO](state: ITodo[], action: IAction<Constants.IRemoveTodoPayload>) {
+    return state.filter(t => t.id !== action.payload.id);
   }
-}, []);
+}, [{id: 1424, text: "This is a test", completed: false}]);
 
 const visibilityFilter = handleActions({
   [Constants.SET_VISIBILITY_FILTER](state: IVisibilityFilterContainer, action: IAction<Constants.ISetVisibilityFilterPayload>) {

@@ -1,35 +1,38 @@
-<Page ux:Name="MainPage" Background="Black">
+<Page ux:Name="MainPage" Background="White">
 
-  <Grid Rows="auto,auto,auto,1*,auto,auto">
+  <Grid Rows="auto,auto,auto,1*,auto">
 
     <!-- Status bar space -->
     <StatusBarBackground Row="0" />
-
-    <!-- TopBar -->
-    <Panel Row="1">
-      <Text Padding="20" TextColor="White" Alignment="Center">Todo List</Text>
-    </Panel>
+    <Rectangle Row="0" Fill="Black" Opacity=".2"/>
 
     <!-- Add todo. -->
-    <Panel Row="2" Background="ContrastColor">
+    <Panel Row="1">
       <Select Data="{addTodo}">
-        <Panel ux:Name="PanelAdd" Opacity="0" Alignment="BottomRight" Margin="0,0,20,-27" HitTestMode="LocalBounds">
+        <Panel ux:Name="PanelAdd" Opacity="0" Alignment="BottomRight" Margin="0,0,24,-24" Width="48" Height="48" HitTestMode="LocalBounds">
           <Clicked Handler="{onClick}" />
 
           <WhilePressed>
-            <Change CircleAdd.Fill="AccentColorDark" />
+            <Change CircleAdd.Fill="AccentColorDark" /> 
           </WhilePressed>
 
-          <Image Width="14" Height="14" Margin="20" File="../Assets/Icons/TabIconNew@2x.png"/>
+          <Rectangle Height="46%" Width="2%" Fill="White" />
+          <Rectangle Height="2%" Width="46%" Fill="White" />
           <Circle ux:Name="CircleAdd" Fill="AccentColor">
-            <DropShadow Angle="90" Distance="5" Size="30" Spread="0.1"  />
+            <DropShadow Angle="90" Distance="3" Size="20" Spread="0.1"  />
           </Circle>
         </Panel>
 
-        <TextEdit Padding="30,20,80,20" Value="{newTodoText}"
-                  Font="KarlaBold" FontSize="28" TextColor="Black"
-                  CaretColor="Black" SelectionColor="White"
-                  PlaceholderText="New task">
+        <TextEdit Padding="30,16,80,20" Value="{newTodoText}"
+                  Font="AvenirLight" FontSize="28" TextColor="White"
+                  CaretColor="White" SelectionColor="#FF3366"
+                  PlaceholderText="New task 2" PlaceholderColor="White"
+                  ActionStyle="Done">
+          <OnKeyPress Key="Enter" Handler="{onClick}"/>
+          <TextInputActionTriggered>
+             <Callback Handler="{onClick}" />
+             <ReleaseFocus />
+         </TextInputActionTriggered>
           <WhileContainsText>
             <Change PanelAdd.Opacity="1" Duration=".3" Easing="CircularInOut" />
           </WhileContainsText>
@@ -37,40 +40,143 @@
       </Select>
     </Panel>
 
-    <!-- Todo list. -->
-    <Panel Row="3">
-      <StackPanel>
-        <Each Items="{todos.list}">
-          <Text TextColor="White" Value="{text}" />
-        </Each>
-      </StackPanel>
+    <!-- Top background -->
+    <Panel Row="0" RowSpan="2">
+      <Image File="../Assets/Backgrounds/Bg02.png" StretchMode="UniformToFill" StretchSizing="Zero" Opacity=".3" />
+      <Rectangle>
+        <LinearGradient>
+          <GradientStop Offset="0" Color="#4B4097"/>
+          <GradientStop Offset="1" Color="#000000"/>
+        </LinearGradient>
+      </Rectangle>
     </Panel>
 
-    <!-- Footer tabs. -->
-    <Panel Row="4" Background="White" Height="60">
+    <!-- Todo list. -->
+    <Panel Row="3">
+      <ScrollView>
+        <StackPanel>
+          <Each Items="{todos.list}">
+            <Panel ux:Name="TodoPanel" BoxSizing="Limit" LimitHeight="100%" Background="White">
+              <WhileTrue Value="{hidden}">
+                <Change TodoPanel.LimitHeight="0" Duration="0.4" Easing="CircularInOut"/>
+                <Change TodoPanel.Opacity="0" Duration="0.3"  Easing="CircularInOut"/>
+              </WhileTrue>
 
-      <Panel ux:Class="FooterTab" HitTestMode="LocalBounds">
-        <Clicked Handler="{onClick}" />
+              <LayoutAnimation>
+                <Move RelativeTo="LayoutChange" Y="1" Duration="0.6" Easing="CircularInOut"/>
+              </LayoutAnimation>
+              <AddingAnimation>
+                <Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularInOut" />
+              </AddingAnimation>
+              <RemovingAnimation>
+                <Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularInOut" />
+              </RemovingAnimation>
 
-        <Image StretchMode="Uniform" Width="18" Alignment="Center" File="../Assets/Icons/TabIconRecent@2x.png"/>
+              <Grid Columns="auto,auto,1*,auto" Height="60">
+                <Panel Column="0" Margin="20,0,0,0" HitTestMode="LocalBoundsAndChildren">
+                  <Clicked Handler="{toggle}" />
 
-        <WhileTrue Value="{active}">
-          <Rectangle Background="Black" Height="4%" Alignment="Bottom"/>
+                  <Panel ux:Name="CheckCircle" Alignment="Center">
+                    <Circle Opacity=".2" Width="22" Height="22">
+                      <Stroke Width="1" Brush="#1D1D26"/>
+                    </Circle>
+                  </Panel>
+                  <Panel ux:Name="CheckMark" Opacity="0" Alignment="Center">
+                    <Translation Y="8" X="-4"/>
+                    <Panel Height="1" Width="10" Background="#50D2C2">
+      								<Rotation Degrees="45"/>
+      								<Translation X="-0.5" RelativeTo="Size"/>
+      							</Panel>
+      							<Panel Height="1" Width="20" Background="#50D2C2">
+      								<Rotation Degrees="-45"/>
+      								<Translation X="0.5" RelativeTo="Size"/>
+      							</Panel>
+                  </Panel>
+                </Panel>
+
+                <Text ux:Name="CheckText" Column="1" Font="AvenirBook" Alignment="VerticalCenter" FontSize="18" TextColor="#1D1D26" Value="{text}" Margin="16,2,16,0" />
+                <Rectangle ux:Name="CheckTextLine" Height="1" Alignment="VerticalCenter" Margin="16,0,16,0" Y="2" Column="1" Fill="#BBBBBD" Opacity="0" />
+
+                <Panel Column="3" Width="26" Margin="0,0,20,0" HitTestMode="LocalBoundsAndChildren">
+                  <Clicked Handler="{remove}" />
+
+                  <Rectangle Fill="#F4F4F4" Height="1" Alignment="VerticalCenter">
+                    <Rotation Degrees="45"/>
+                  </Rectangle>
+                  <Rectangle Fill="#F4F4F4" Height="1" Alignment="VerticalCenter">
+                    <Rotation Degrees="-45"/>
+                  </Rectangle>
+                </Panel>
+
+                <WhileFalse Value="{completed}">
+                  <Rotate Target="CheckMark" Degrees="40" Duration=".5" Easing="CircularIn" />
+                  <Scale Target="CheckMark" Factor=".2" Duration=".5" Easing="CircularIn"/>
+                </WhileFalse>
+
+                <WhileTrue Value="{completed}">
+                  <Change CheckMark.Opacity="1" Duration="0.3"/>
+
+                  <Change CheckCircle.Opacity="0" Duration="0.3"/>
+                  <Scale Target="CheckCircle" Factor=".2" Duration="0.3" Easing="CircularIn" />
+
+                  <Change CheckText.TextColor="#BBBBBD" Duration="0.3"/>
+                  <Change CheckTextLine.Opacity="1" Duration="0.3"/>
+                </WhileTrue>
+              </Grid>
+              <Rectangle Fill="#F4F4F4" Height="1" Alignment="Bottom" />
+            </Panel>
+          </Each>
+        </StackPanel>
+      </ScrollView>
+
+      <Panel ux:Name="PlaceholderPanel1" Opacity="0">
+        <Text ux:Name="ActiveListEmptyText" Opacity="0" Font="AvenirBook" TextColor="#BBBBBD" Alignment="Center" FontSize="18">You don't have any active Todos</Text>
+
+        <WhileTrue Value="{todos.isActiveListEmpty}">
+          <Change PlaceholderPanel1.Opacity="1" Duration=".3"/>
+        </WhileTrue>
+        <WhileTrue Value="{filterActive.active}">
+          <Change ActiveListEmptyText.Opacity="1" Duration=".3" />
         </WhileTrue>
       </Panel>
 
-      <Grid Row="2" Columns="1*,1*">
+      <Panel ux:Name="PlaceholderPanel2" Opacity="0">
+        <Text ux:Name="AllListEmptyText" Opacity="0" Font="AvenirBook" TextColor="#BBBBBD" Alignment="Center" FontSize="18">You don't have any Todos</Text>
+
+        <WhileTrue Value="{todos.isAllListEmpty}">
+          <Change PlaceholderPanel2.Opacity="1" Duration=".3"/>
+        </WhileTrue>
+        <WhileTrue Value="{filterAll.active}">
+          <Change AllListEmptyText.Opacity="1" Duration=".3" />
+        </WhileTrue>
+      </Panel>
+    </Panel>
+
+    <!-- Footer tabs. -->
+    <Panel Row="4" Background="#F8F8F8" Height="60">
+
+      <Panel ux:Class="FooterTab" HitTestMode="LocalBounds">
+        <string ux:Property="Text" />
+
+        <Clicked Handler="{onClick}" />
+
+        <Text Font="AvenirBook" TextColor="#1D1D26" FontSize="16" Value="{Property this.Text}" Alignment="Center" />
+
+        <WhileTrue Value="{active}">
+          <Rectangle Background="AccentColor" Height="4%" Alignment="Top"/>
+        </WhileTrue>
+      </Panel>
+
+      <Grid Row="2" Columns="1*,auto,1*">
         <Select Data="{filterActive}">
-          <FooterTab Column="0" />
+          <FooterTab Column="0" Text="ACTIVE" />
         </Select>
+        <Rectangle Column="1" Height="40%" Width="1" Alignment="Center" Fill="#DBDBDB" />
         <Select Data="{filterAll}">
-          <FooterTab Column="1" />
+          <FooterTab Column="2" Text="ALL" />
         </Select>
       </Grid>
     </Panel>
-
-    <!-- Bottom space. -->
-    <BottomBarBackground Row="5" />
 
   </Grid>
 </Page>

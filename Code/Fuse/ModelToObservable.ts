@@ -10,8 +10,9 @@ export default function ModelToObservable(observable: (...values) => FuseObserva
   // Two very different cases, whether it's an array or an object.
   if (newModel instanceof Array) {
     // If the observable doesn't exist, create it.
-    if (!existingObservable)
+    if (!existingObservable) {
       existingObservable = observable();
+    }
     
     // Copy the observable to an array.
     let observableItems = [];
