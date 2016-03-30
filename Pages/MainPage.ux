@@ -10,10 +10,13 @@
     <Panel Row="1">
       <Select Data="{addTodo}">
         <Panel ux:Name="PanelAdd" Opacity="0" Alignment="BottomRight" Margin="0,0,24,-24" Width="48" Height="48" HitTestMode="LocalBounds">
-          <Clicked Handler="{onClick}" />
+          <Clicked>
+            <GiveFocus Target="TextNewTask" />
+            <Callback Handler="{onClick}" />
+          </Clicked>
 
           <WhilePressed>
-            <Change CircleAdd.Fill="AccentColorDark" /> 
+            <Change CircleAdd.Fill="AccentColorDark" />
           </WhilePressed>
 
           <Rectangle Height="46%" Width="2%" Fill="White" />
@@ -23,15 +26,14 @@
           </Circle>
         </Panel>
 
-        <TextEdit Padding="30,16,80,20" Value="{newTodoText}"
+        <TextEdit ux:Name="TextNewTask" Padding="30,16,80,20" Value="{newTodoText}"
                   Font="AvenirLight" FontSize="28" TextColor="White"
                   CaretColor="White" SelectionColor="#FF3366"
-                  PlaceholderText="New task 2" PlaceholderColor="White"
+                  PlaceholderText="New task" PlaceholderColor="White"
                   ActionStyle="Done">
           <OnKeyPress Key="Enter" Handler="{onClick}"/>
           <TextInputActionTriggered>
              <Callback Handler="{onClick}" />
-             <ReleaseFocus />
          </TextInputActionTriggered>
           <WhileContainsText>
             <Change PanelAdd.Opacity="1" Duration=".3" Easing="CircularInOut" />
@@ -72,10 +74,15 @@
                 <Move RelativeTo="Size" X="1" Duration="0.3" Easing="CircularInOut" />
               </RemovingAnimation>
 
-              <Grid Columns="auto,auto,1*,auto" Height="60">
-                <Panel Column="0" Margin="20,0,0,0" HitTestMode="LocalBoundsAndChildren">
+              <Grid ux:Name="GridTodo" Columns="auto,auto,1*,auto" Height="60">
+                <Panel Column="0" ColumnSpan="3" HitTestMode="LocalBoundsAndChildren">
                   <Clicked Handler="{toggle}" />
+                  <WhilePressed>
+                    <Change GridTodo.Background="#F8F8F8" />
+                  </WhilePressed>
+                </Panel>
 
+                <Panel Column="0" Margin="20,0,0,0">
                   <Panel ux:Name="CheckCircle" Alignment="Center">
                     <Circle Opacity=".2" Width="22" Height="22">
                       <Stroke Width="1" Brush="#1D1D26"/>
