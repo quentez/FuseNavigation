@@ -1,9 +1,0 @@
-<Text ux:Class="BasicButton" ux:Name="self" Padding="0,10" Font="KarlaBold" FontSize="13" TextColor="White" Value="{Property self.Text}">
-  <!-- Properties. -->
-  <string ux:Property="Text"/>
-
-  <!-- States. -->
-  <WhilePressed>
-    <Change self.Opacity=".7"/>
-  </WhilePressed>
-</Text>
